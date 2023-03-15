@@ -1,19 +1,39 @@
 <template>
   <base-page title="Overview">
-    <div class="overview__page" v-if="ready">
+    <div class="overview__page" v-if="store.isReady">
       <base-card>
         <h1>Memory</h1>
-        <base-status :max="systemInfo.memory.total" :used="systemInfo.memory.used"></base-status>
+        <base-status :max="store.systemInfo.memory.total" :used="store.systemInfo.memory.used"></base-status>
         <div>
-          <h2>{{ systemInfo.memory.used.toFixed(2) + ' / ' + systemInfo.memory.total.toFixed(2) + ' GB' }}</h2>
+          <h2>
+            {{ store.systemInfo.memory.used.toFixed(2) + ' / ' + store.systemInfo.memory.total.toFixed(2) + ' GB' }}
+          </h2>
           <h2>Usage</h2>
         </div>
+      </base-card>
+      <base-card>
+        <h1>CPU</h1>
+        <div>
+          <h1>{{ store.systemInfo.cpu.speed + ' GHz' }}</h1>
+          <h2>Speed</h2>
+        </div>
+        <div></div>
+      </base-card>
+      <base-card>
+        <h1>OS</h1>
+        <div>
+          <h1>{{ store.systemInfo.osInfo.platform }}</h1>
+          <h2>{{ store.systemInfo.osInfo.distro }}</h2>
+        </div>
+        <div></div>
       </base-card>
     </div>
   </base-page>
 </template>
 
 <script>
+import { useSystemInfo } from '../../stores/systemInfo';
+
 export default {
   data() {
     return {
@@ -22,20 +42,11 @@ export default {
     };
   },
   mounted() {
-    this.fetchData();
+    this.store.fetchData();
   },
-  methods: {
-    async fetchData() {
-      try {
-        console.log('test');
-        const rawData = await fetch('http://localhost:3000/system/all');
-        const data = await rawData.json();
-        this.systemInfo = data;
-        this.ready = true;
-      } catch (err) {
-        console.error(err);
-      }
-    },
+  setup() {
+    const store = useSystemInfo();
+    return { store };
   },
 };
 </script>
@@ -44,5 +55,7 @@ export default {
 .overview__page {
   height: 100%;
   width: calc(100vw - 22rem);
+  display: flex;
+  flex-wrap: wrap;
 }
 </style>

@@ -15,5 +15,6 @@
   border-radius: 1rem;
   background-color: #252c48;
   color: #71778f;
+  margin: 0.5rem;
 }
 </style>
