@@ -1,5 +1,8 @@
 <template>
-  <the-sidebar></the-sidebar>
+  <main>
+    <the-sidebar></the-sidebar>
+    <router-view></router-view>
+  </main>
 </template>
 
 <script>
@@ -25,10 +28,11 @@ export default {
 }
 
 body {
+  width: 100vw;
   background-color: #1c2039;
+}
+
+main {
   display: flex;
-  flex-direction: row;
-  justify-content: left;
-  align-items: center;
 }
 </style>

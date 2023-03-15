@@ -4,12 +4,8 @@
     <div class="container">
       <p class="subtitle">Menu</p>
       <ul class="menu">
-        <TheSidebarMenuItem
-          v-for="item of menuItems"
-          :title="item.title"
-          :icon="item.icon"
-          :link="item.link"
-        ></TheSidebarMenuItem>
+        <TheSidebarMenuItem v-for="item of menuItems" :title="item.title" :icon="item.icon" :link="item.link">
+        </TheSidebarMenuItem>
       </ul>
     </div>
   </div>
